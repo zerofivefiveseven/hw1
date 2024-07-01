@@ -1,0 +1,17 @@
+name: 'test my project'
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo ${{ github.run_id }}
+      - uses: actions/checkout@v2
+      - run: sudo apt-get update && sudo apt-get install cmake && sudo apt-get install build-essential -y
+      - run: mkdir ../cmake-build && cd ../cmake-build
+      - run: cmake ../
+      - run: cmake --build .
+      - name: version
+
