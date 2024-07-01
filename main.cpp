@@ -1,3 +1,10 @@
-//
-// Created by pavel on 01.07.24.
-//
+#include <iostream>
+
+int version() {
+    return PROJECT_VERSION_PATCH;
+}
+
+void main() {
+    std::cout << "Version: " << version() << std::endl;
+    std::cout << "Hello, world!" << std::endl;
+}
