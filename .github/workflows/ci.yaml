@@ -13,5 +13,5 @@ jobs:
       - run: mkdir ../cmake-build && cd ../cmake-build
       - run: cmake ../
       - run: cmake --build .
-      - name: version
+      - run: ./main
 
