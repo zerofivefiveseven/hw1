@@ -11,17 +11,17 @@ jobs:
       - name: Install requirements for current project
         run: sudo apt update && sudo apt-get install grep && sudo apt-get install cmake build-essential g++ python3-pip clang-tidy libboost-test-dev grep -y
 
-      - run: > 
-              echo "export PATH=$PATH: /usr/bin/grep" >> ~/.bash_profile
+      - run: >
+          echo "export PATH=$PATH: /usr/bin/grep" >> ~/.bash_profile
 
       - name: install cpplint
         run: pip install cpplint
 
       - name: use cpplint
-#        sudo unset GREP_OPTIONS && echo "export PATH=$PATH:/${{github.workspace}}" >> ~/.bash_profile && \
+        #        sudo unset GREP_OPTIONS && echo "export PATH=$PATH:/${{github.workspace}}" >> ~/.bash_profile && \
         run: >
-              cpplint --counting=detailed \
-              $( find ../../ -name \*.h -or -name \*.cpp | /usr/bin/grep -s -vE "^\.\/cmake-build\/" ) 2>&1 | \
+          cpplint --counting=detailed \
+          $( find ../../ -name \*.h -or -name \*.cpp | /usr/bin/grep -s -vE "^\.\/cmake-build\/" ) 2>&1 | \
           /usr/bin/grep -s -e "Category" -e "Total error" > cpplintsummary.log
       - name: CMake first step
         run: cmake -B ${{github.workspace}}/cmake-build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
