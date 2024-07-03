@@ -19,8 +19,8 @@ jobs:
         run: >
               echo "export PATH=$PATH:${{github.workspace}}" >> ~/.bash_profile && \
               cpplint --counting=detailed \
-              $( find ../../ -name \*.h -or -name \*.cpp | grep -vE "^\.\/cmake-build\/" ) 2>&1 | \
-              grep -e "Category" -e "Total error" > cpplintsummary.log
+              $( find ../../ -name \*.h -or -name \*.cpp | /usr/bin/grep -vE "^\.\/cmake-build\/" ) 2>&1 | \
+              /usr/bin/grep -e "Category" -e "Total error" > cpplintsummary.log
       - name: CMake first step
         run: cmake -B ${{github.workspace}}/cmake-build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
 
