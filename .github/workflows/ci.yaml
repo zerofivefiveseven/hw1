@@ -11,7 +11,7 @@ jobs:
       - name: Install requirements for current project
         run: sudo apt update && sudo apt-get install grep && sudo apt-get install cmake build-essential g++ python3-pip clang-tidy libboost-test-dev grep -y
 
-      - run: |
+      - run: > 
               echo "export PATH=$PATH: /usr/bin/grep" >> ~/.bash_profile
 
       - name: install cpplint
