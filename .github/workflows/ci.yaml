@@ -16,7 +16,7 @@ jobs:
 
       - name: use cpplint
         run: >
-              echo "export PATH=$PATH:/${{github.workspace}}" >> ~/.bash_profile && \
+              unset GREP_OPTIONS && echo "export PATH=$PATH:/${{github.workspace}}" >> ~/.bash_profile && \
               cpplint --counting=detailed \
               $( find ../../ -name \*.h -or -name \*.cpp | grep -vE "^\.\/cmake-build\/" ) 2>&1 | \
               grep -e "Category" -e "Total error" > cpplintsummary.log
