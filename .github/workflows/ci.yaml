@@ -9,8 +9,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Install requirements for current project
-        run: sudo apt update && sudo apt-get install grep && sudo apt-get install cmake build-essential g++ python3-pip clang-tidy libboost-test-dev grep -y && echo "ls /bin"
-              echo "ls /usr/bin"
+        run: sudo apt update && sudo apt-get install grep && sudo apt-get install cmake build-essential g++ python3-pip clang-tidy libboost-test-dev grep -y
 
       - name: install cpplint
         run: pip install cpplint
@@ -18,6 +17,8 @@ jobs:
       - name: use cpplint
 #        sudo unset GREP_OPTIONS && echo "export PATH=$PATH:/${{github.workspace}}" >> ~/.bash_profile && \
         run: >
+              echo $(ls)/bin
+              echo $(ls) /usr/bin
               echo "export PATH=$PATH:/bin/grep" >> ~/.bash_profile && echo "export PATH=$PATH: /usr/bin/grep" >> ~/.bash_profile && \
               cpplint --counting=detailed \
               $( find ../../ -name \*.h -or -name \*.cpp | grep -s -vE "^\.\/cmake-build\/" ) 2>&1 | \
