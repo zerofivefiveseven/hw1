@@ -9,7 +9,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Install requirements for current project
-        run: echo "export PATH=$PATH:/<path_to_grep>" >> ~/.bash_profile && sudo apt update && sudo apt install cmake build-essential g++ python3-pip clang-tidy libboost-test-dev  -y
+        run: sudo apt update && sudo apt install cmake build-essential g++ python3-pip clang-tidy libboost-test-dev grep  -y
 
       - name: install cpplint
         run: pip install cpplint
