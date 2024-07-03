@@ -11,11 +11,12 @@ jobs:
       - name: Install requirements for current project
         run: sudo apt update && sudo apt-get install grep && sudo apt-get install cmake build-essential g++ python3-pip clang-tidy libboost-test-dev grep -y
 
+      - run: |
+              echo "export PATH=$PATH: /usr/bin/grep" >> ~/.bash_profile
+
       - name: install cpplint
         run: pip install cpplint
-      - name: install
-      - run: > 
-             echo "export PATH=$PATH: /usr/bin/grep" >> ~/.bash_profile
+
       - name: use cpplint
 #        sudo unset GREP_OPTIONS && echo "export PATH=$PATH:/${{github.workspace}}" >> ~/.bash_profile && \
         run: >
