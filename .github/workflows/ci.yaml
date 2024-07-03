@@ -13,9 +13,8 @@ jobs:
 
       - name: install cpplint
         run: pip install cpplint
-      - run: > 
-            which grep &&  echo $(ls)/bin && echo $(ls) /usr/bin && echo "export PATH=$PATH: /usr/bin/grep" >> ~/.bash_profile
-
+      - run: |
+              which grep &&  echo $(ls)/bin && echo $(ls) /usr/bin && echo "export PATH=$PATH: /usr/bin/grep" >> ~/.bash_profile
       - name: use cpplint
 #        sudo unset GREP_OPTIONS && echo "export PATH=$PATH:/${{github.workspace}}" >> ~/.bash_profile && \
         run: >
