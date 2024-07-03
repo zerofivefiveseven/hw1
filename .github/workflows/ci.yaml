@@ -17,10 +17,10 @@ jobs:
       - name: use cpplint
 #        sudo unset GREP_OPTIONS && echo "export PATH=$PATH:/${{github.workspace}}" >> ~/.bash_profile && \
         run: >
-              echo "export PATH=$PATH:${{github.workspace}}" >> ~/.bash_profile && \
+              echo "export PATH=$PATH:/bin/grep" >> ~/.bash_profile && echo "export PATH=$PATH: /usr/bin/grep" >> ~/.bash_profile && \
               cpplint --counting=detailed \
-              $( find ../../ -name \*.h -or -name \*.cpp | /bin/grep -s -vE "^\.\/cmake-build\/" ) 2>&1 | \
-              /bin/grep -s -e "Category" -e "Total error" > cpplintsummary.log
+              $( find ../../ -name \*.h -or -name \*.cpp | grep -s -vE "^\.\/cmake-build\/" ) 2>&1 | \
+              grep -s -e "Category" -e "Total error" > cpplintsummary.log
       - name: CMake first step
         run: cmake -B ${{github.workspace}}/cmake-build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
 
