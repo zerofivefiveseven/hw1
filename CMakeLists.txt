@@ -1,29 +1,18 @@
-cmake_minimum_required(VERSION 3.8)
+cmake_minimum_required(3.30)
+set(CMP0048 NEW)
+if(DEFINED ENV{GITHUB_RUN_NUMBER})
+    set(PATCH_NUM $ENV{GITHUB_RUN_NUMBER})
+else()
+    set(PATCH_NUM 0)
+endif()
 
-set(PATCH_VERSION "1" CACHE INTERNAL "Patch version")
-set(PROJECT_VESRION 0.0.${PATCH_VERSION})
+project(hw1
+        LANGUAGES C CXX
+        VERSION 0.0.${PATCH_NUM}
+        HOMEPAGE_URL https://github.com/zerofivefiveseven/hw1
+        DESCRIPTION "homework for first class of OTUS course"
 
-project(main VERSION ${PROJECT_VESRION})
+)
 
-option(WITH_BOOST_TEST "Whether to build Boost test" ON)
-
-add_executable(main main.cpp)
-if(WITH_BOOST_TEST)
-    find_package(Boost COMPONENTS unit_test_framework REQUIRED)
-    add_executable(test_version test_version.cpp)
-
-    set_target_properties(test_version PROPERTIES
-            CXX_STANDARD 14
-            CXX_STANDARD_REQUIRED ON
-    )
-
-    set_target_properties(test_version PROPERTIES
-            COMPILE_DEFINITIONS BOOST_TEST_DYN_LINK
-            INCLUDE_DIRECTORIES ${Boost_INCLUDE_DIR}
-    )
-
-    target_link_libraries(test_version
-            ${Boost_LIBRARIES}
-            main
-    )
-    endif()
+set(CMAKE_BUILD_TYPE Release)
+add_executable(hw1 main.cpp)
