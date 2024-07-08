@@ -1,35 +1,21 @@
-name: 'test my project'
-on:
-  push:
-    branches:
-      - main
+name: main
+
+on: [ push, pull_request ]
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Install requirements for current project
-        run: sudo apt update && sudo apt-get install grep && sudo apt-get install cmake build-essential g++ python3-pip clang-tidy libboost-test-dev grep -y
 
-      - run: >
-          echo "export PATH=$PATH: /usr/bin/grep" >> ~/.bash_profile
+      - name: Install requirements for current project
+        run: sudo apt-get update && sudo apt-get -y install grep cmake build-essential g++ python3-pip clang-tidy libboost-test-dev grep
 
       - name: install cpplint
         run: pip install cpplint
 
       - name: use cpplint
-        #        sudo unset GREP_OPTIONS && echo "export PATH=$PATH:/${{github.workspace}}" >> ~/.bash_profile && \
         run: >
-          cpplint --counting=detailed \
-          $( find ../../ -name \*.h -or -name \*.cpp | grep -s -vE "^\.\/cmake-build\/" ) 2>&1 | \
-          grep -s -e "Category" -e "Total error" > cpplintsummary.log
-      - name: CMake first step
-        run: cmake -B ${{github.workspace}}/cmake-build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
-
-      - name: Build
-        # Build your program with the given configuration
-        run: cmake --build ${{github.workspace}}/cmake-build --config ${{env.BUILD_TYPE}}
-#
-#      - name: Run tests
-#        # Run 'test' cmake target
-#        run: ctest --test-dir ${{github.workspace}}/build
+          find . \( -name '*.h' -or -name '*.cpp' \) -and -not -wholename '*/cmake-build/*' |
+          xargs cpplint --counting=detailed  |
+          grep -s -e "Category" -e "Total error"
